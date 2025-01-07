@@ -1,10 +1,12 @@
 package juacu7340.dirtybox.plugins;
 
+import juacu7340.dirtybox.builders.ProtoInstanceBuilder;
 import juacu7340.dirtybox.proto.SampleProto.Sample;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 
 public class DummyPlugin extends Plugin {
@@ -16,7 +18,14 @@ public class DummyPlugin extends Plugin {
 
     @Override
     public void transform(byte[] data) throws IOException {
-        Sample sample = Sample.parseFrom(data);
+        ProtoInstanceBuilder builder = ProtoInstanceBuilder.getInstance();
+        Optional<Sample> sampleOptional = builder.getObject(data, Sample.class);
+
+        if (sampleOptional.isEmpty()) {
+            return;
+        }
+
+        Sample sample = sampleOptional.get();
 
         System.out.println("Sample data: " + sample.getData());
 
@@ -36,6 +45,11 @@ public class DummyPlugin extends Plugin {
     @Override
     public byte[] getData() {
         return this.data;
+    }
+
+    @Override
+    public void setData(byte[] data) {
+        this.data = data;
     }
 
     private byte[] data;

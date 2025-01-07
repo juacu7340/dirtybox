@@ -3,24 +3,21 @@ package juacu7340.dirtybox.plugins;
 import java.io.IOException;
 
 /**
- * Represents the start of the {@code Plugin} chain.
+ * Represents the end of the {@code Plugin} chain.
  */
-public class EmitterPlugin extends Plugin {
-    public EmitterPlugin() {}
-
+public class ReceiverPlugin extends Plugin {
     @Override
     public void transform(byte[] data) throws IOException {
-           // NOOP
+
     }
 
     @Override
     public byte[] getData() {
-        return this.data;
+        return new byte[0];
     }
 
+    @Override
     public void setData(byte[] data) {
-        this.data = data;
+        // NOOP
     }
-
-    private byte[] data;
 }

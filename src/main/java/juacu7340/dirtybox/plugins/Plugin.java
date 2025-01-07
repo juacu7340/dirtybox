@@ -52,4 +52,8 @@ public abstract class Plugin extends PropertyChangeSupportable {
     public abstract void transform(byte[] data) throws IOException;
 
     public abstract byte[] getData();
+
+    public abstract void setData(byte[] data);
+
+    protected byte[] data;
 }
